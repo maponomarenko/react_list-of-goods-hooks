@@ -33,18 +33,16 @@ function getPreparedGoods(
 ): string[] {
   const preparedGoods = [...goods];
 
-  if (sortField !== SortType.DEFAULT) {
-    preparedGoods.sort((good1: string, good2: string) => {
-      switch (sortField) {
-        case SortType.SORT_ALPHABETICALLY:
-          return good1.localeCompare(good2);
-        case SortType.SORT_LENGTH:
-          return good1.length - good2.length;
-        default:
-          return 0;
-      }
-    });
-  }
+  preparedGoods.sort((good1: string, good2: string) => {
+    switch (sortField) {
+      case SortType.SORT_ALPHABETICALLY:
+        return good1.localeCompare(good2);
+      case SortType.SORT_LENGTH:
+        return good1.length - good2.length;
+      default:
+        return 0;
+    }
+  });
 
   if (reversed) {
     preparedGoods.reverse();
