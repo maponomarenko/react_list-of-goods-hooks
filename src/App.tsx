@@ -27,11 +27,14 @@ type Prop = {
   reversed: boolean;
 };
 
-function getPreparedGoods(goods: string[], { sortField, reversed }: Prop) {
+function getPreparedGoods(
+  goods: string[],
+  { sortField, reversed }: Prop,
+): string[] {
   const preparedGoods = [...goods];
 
-  if (sortField) {
-    preparedGoods.sort((good1, good2) => {
+  if (sortField !== SortType.DEFAULT) {
+    preparedGoods.sort((good1: string, good2: string) => {
       switch (sortField) {
         case SortType.SORT_ALPHABETICALLY:
           return good1.localeCompare(good2);
@@ -53,7 +56,7 @@ function getPreparedGoods(goods: string[], { sortField, reversed }: Prop) {
 export const App: React.FC = () => {
   const [sortField, setSortField] = useState(SortType.DEFAULT);
   const [reversed, setReversed] = useState(false);
-  const visibleGoods = getPreparedGoods(goodsFromServer, {
+  const visibleGoods: string[] = getPreparedGoods(goodsFromServer, {
     sortField,
     reversed,
   });
